@@ -71,5 +71,5 @@ const equalsButton = document.querySelector("#equals");
 equalsButton.addEventListener("click", function() {
     anotherNumber = Number(currentNumberSet);
     result = operate(operator, number, anotherNumber);
-    console.log(result);
+    display.textContent = result;
 })
