@@ -20,22 +20,56 @@ let anotherNumber;
 
 function operate(operator, number, anotherNumber) {
     if (operator === "+") {
-        add(number, anotherNumber);
+        return add(number, anotherNumber);
     } else if (operator === "-") {
-        subtract(number, anotherNumber);
+        return subtract(number, anotherNumber);
     } else if (operator === "*") {
-        multiply(number, anotherNumber);
+        return multiply(number, anotherNumber);
     } else if (operator === "/") {
-        divide(number, anotherNumber);
+        return divide(number, anotherNumber);
     }
 }
 
-const buttons = document.querySelector("#buttons");
+const numberBtns = document.querySelector("#numbers");
+const operatorBtns = document.querySelector("#operators");
+
 const display = document.querySelector("#display");
 
-let currentNumbers = ""; // Initializing current numbers variable
+// Initializing current number and operator variables
+let currentNumber = ""; 
+let currentOperator = "";
 
-buttons.addEventListener("click", function(event) {
-    currentNumbers += event.target.id; // The id of the event, which is a number, is added to the currentNumbers
-    display.textContent = currentNumbers; // The display shows currentNumbers
+let currentNumberSet = "";
+
+
+numberBtns.addEventListener("click", function(event) {
+    currentNumber = event.target.id; // The id of the event, which is a number, is the current number
+    updateDisplay(currentNumber);
+
+    currentNumberSet += event.target.id; // id of event is added to the current number set
 });
+
+operatorBtns.addEventListener("click", function(event) {
+    currentOperator = event.target.id;
+    updateDisplay(currentOperator);
+
+    number = Number(currentNumberSet);
+    currentNumberSet = "";
+
+    operator = currentOperator;
+});
+
+function updateDisplay (newContent) {
+    if (display.textContent === "0") { // Clear dummy display
+        display.textContent = ""
+    };
+    display.textContent += newContent;
+}
+
+const equalsButton = document.querySelector("#equals");
+
+equalsButton.addEventListener("click", function() {
+    anotherNumber = Number(currentNumberSet);
+    result = operate(operator, number, anotherNumber);
+    console.log(result);
+})
