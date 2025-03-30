@@ -77,19 +77,35 @@ operatorBtns.addEventListener("click", function(event) {
 });
 
 function updateDisplay (newContent) {
-    if (display.textContent === "0") { // Clear dummy display
+    if (display.textContent === "0000") { // Clear dummy display
         display.textContent = ""
     };
     display.textContent += newContent; // Appending either a number or operator to the display
 }
 
-const equalsButton = document.querySelector("#equals");
+const equalsBtn = document.querySelector("#equals");
 
-equalsButton.addEventListener("click", getResult);
+equalsBtn.addEventListener("click", getResult);
 
 function getResult() {
+    if (!number) { // Exit function if no operator has been added
+        return;
+    } else if (operator === "/" && Number(currentNumberSet) === 0) {
+        alert("No dividing by zero!");
+        return;
+    }
     anotherNumber = Number(currentNumberSet); // Storing the secondary number as the set that comes after the operator
-    result = operate(operator, number, anotherNumber); // We send the current operator and the stored numbers to the function
+    let result = operate(operator, number, anotherNumber); // We send the current operator and the stored numbers to the function
     console.log(result);
     display.textContent = result; // Update the display with the result
 }
+
+const clearBtn = document.querySelector("#clear");
+
+clearBtn.addEventListener("click", function() { // Clear all variables and display 
+    display.textContent = "0000";
+    currentNumberSet = "";
+    number = false;
+    operator = false;
+    anotherNumber = false;
+});
