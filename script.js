@@ -29,3 +29,13 @@ function operate(operator, number, anotherNumber) {
         divide(number, anotherNumber);
     }
 }
+
+const buttons = document.querySelector("#buttons");
+const display = document.querySelector("#display");
+
+let currentNumbers = ""; // Initializing current numbers variable
+
+buttons.addEventListener("click", function(event) {
+    currentNumbers += event.target.id; // The id of the event, which is a number, is added to the currentNumbers
+    display.textContent = currentNumbers; // The display shows currentNumbers
+});
