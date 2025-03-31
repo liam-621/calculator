@@ -17,6 +17,7 @@ function divide(a, b) {
 let number;
 let operator;
 let anotherNumber;
+let result;
 
 function operate(operator, number, anotherNumber) {
     if (operator === "+") {
@@ -43,6 +44,9 @@ let currentNumberSet = ""; // The most recent number set
 let setCount = 0; // Keep track of how many number sets we have
 
 numberBtns.addEventListener("click", function(event) {
+    if (result) {
+        clearDisplay()
+    }
     currentNumber = event.target.id; // The id of the event, which is a number, is the current number
     updateDisplay(currentNumber);
 
@@ -95,17 +99,21 @@ function getResult() {
         return;
     }
     anotherNumber = Number(currentNumberSet); // Storing the secondary number as the set that comes after the operator
-    let result = operate(operator, number, anotherNumber); // We send the current operator and the stored numbers to the function
+    result = operate(operator, number, anotherNumber); // We send the current operator and the stored numbers to the function
     console.log(result);
     display.textContent = result; // Update the display with the result
 }
 
 const clearBtn = document.querySelector("#clear");
 
-clearBtn.addEventListener("click", function() { // Clear all variables and display 
+clearBtn.addEventListener("click", clearDisplay); 
+
+function clearDisplay() { // Clear all variables and display 
     display.textContent = "0000";
     currentNumberSet = "";
-    number = false;
-    operator = false;
-    anotherNumber = false;
-});
+    number = null;
+    operator = null;
+    anotherNumber = null;
+    result = null;
+    setCount = 0;
+}
